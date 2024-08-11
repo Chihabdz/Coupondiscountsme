@@ -44,7 +44,7 @@ def webhook():
 
 # Set up your Telegram bot webhook
 def set_webhook():
-    webhook_url = 'https://my-tg-bot-sxb1.onrender.com'  # Update this URL
+    webhook_url = 'https://my-tg-bot-sxb1.onrender.com/webhook'  # Update this URL
     bot.remove_webhook()
     bot.set_webhook(url=webhook_url)
 
