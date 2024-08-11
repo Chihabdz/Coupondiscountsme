@@ -8,6 +8,10 @@ import re
 import requests, json
 from urllib.parse import urlparse, parse_qs
 import urllib.parse
+import os
+
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
 
 # Initialize the bot with your token
 bot = telebot.TeleBot('7238161768:AAFSia_IwtOmMv75M-2Vmjb7LSG07UCFfOc')
