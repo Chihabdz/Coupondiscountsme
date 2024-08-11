@@ -34,6 +34,11 @@ keyboard.add(btn1, btn2, btn3)
 keyboard_games = types.InlineKeyboardMarkup(row_width=1)
 keyboard_games.add(btn1, btn2, btn3)
 
+# Handle root path to avoid 404 errors
+@app.route('/', methods=['GET'])
+def home():
+    return "Bot is running!", 200
+
 # Flask route to handle updates from Telegram
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -44,7 +49,7 @@ def webhook():
 
 # Set up your Telegram bot webhook
 def set_webhook():
-    webhook_url = 'https://my-tg-bot-sxb1.onrender.com/webhook'  # Update this URL
+    webhook_url = 'https://my-tg-bot-sxb1.onrender.com/webhook'  # Update this URL if needed
     bot.remove_webhook()
     bot.set_webhook(url=webhook_url)
 
