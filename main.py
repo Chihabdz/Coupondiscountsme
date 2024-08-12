@@ -49,13 +49,14 @@ def webhook():
 
 # Set up your Telegram bot webhook
 def set_webhook():
-    webhook_url = 'https://my-tg-bot-sxb1.onrender.com/webhook'  # Update this URL if needed
+    webhook_url = 'https://my-tg-bot-sxb1.onrender.com/webhook'  # Update this URL
     bot.remove_webhook()
     bot.set_webhook(url=webhook_url)
 
+
 if __name__ == "__main__":
     set_webhook()  # Set the webhook when the app starts
-    app.run(host='0.0.0.0', port=10000)  # Render expects the app to listen on port 10000
+    app.run(host='0.0.0.0', port=10000)
 
 # Define your bot handlers
 
