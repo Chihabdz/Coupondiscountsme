@@ -15,7 +15,7 @@ import os
 app = Flask(__name__)
 
 # Initialize the bot with your token
-bot = telebot.TeleBot('7238161768:AAFSia_IwtOmMv75M-2Vmjb7LSG07UCFfOc')
+bot = telebot.TeleBot('7238161768:AAFOAypfNiMGixF8WnZAMmqoVVLvxd8DA9A')
 
 # Initialize the AliExpress API
 aliexpress = AliexpressApi('508884', 'UBrTeeNkF8kjCQabs3UZsSosXIHZYzlS',
