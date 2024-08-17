@@ -8,12 +8,16 @@ import re
 import requests, json
 from urllib.parse import urlparse, parse_qs
 import urllib.parse
+import os
 
-# Initialize the bot with your token
-bot = telebot.TeleBot('7238161768:AAFOAypfNiMGixF8WnZAMmqoVVLvxd8DA9A')
+# Initialize the bot with your token from the environment variable
+bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
+bot = telebot.TeleBot(bot_token)
 
-# Initialize the AliExpress API
-aliexpress = AliexpressApi('508884', 'UBrTeeNkF8kjCQabs3UZsSosXIHZYzlS',
+# Initialize the AliExpress API with your credentials from environment variables
+app_key = os.getenv('ALIEXPRESS_APP_KEY')
+app_secret = os.getenv('ALIEXPRESS_APP_SECRET')
+aliexpress = AliexpressApi(app_key, app_secret,
                            models.Language.EN, models.Currency.EUR, 'default')
 
 # Define the keyboards
