@@ -1,7 +1,5 @@
 AliExpress Affiliate Telegram BOT  :
 
-https://t.me/AliXPromotion
-
 - `get_affiliate_links`
 - `get_promotion_products`
 - `get_promotion_product_detail`
@@ -43,5 +41,3 @@ Apply for API access by providing the necessary information about how you plan t
 After your application is reviewed and approved, you will receive your API key.
 The API key will be available in your affiliate account dashboard.
 
-### يسمح بإستعمال هذا الكود لغرض ربحي 
-### دعواتكم لنا
