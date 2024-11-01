@@ -59,21 +59,21 @@ def button_click(callback_query):
 def get_affiliate_links(message, message_id, link):
     try:
         affiliate_link = aliexpress.get_affiliate_links(
-            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
+            f'https://star.aliexpress.vn/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
         )[0].promotion_link
 
         super_links = aliexpress.get_affiliate_links(
-            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=562&aff_fcid='
+            f'https://star.aliexpress.vn/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=562&aff_fcid='
         )[0].promotion_link
 
         limit_links = aliexpress.get_affiliate_links(
-            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=561&aff_fcid='
+            f'https://star.aliexpress.vn/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=561&aff_fcid='
         )[0].promotion_link
 
         try:
             product_details = aliexpress.get_products_details([
                 '1000006468625',
-                f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
+                f'https://star.aliexpress.vn/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
             ])
             price_pro = product_details[0].target_sale_price
             title_link = product_details[0].product_title
