@@ -89,7 +89,7 @@ def get_affiliate_links(message, message_id, link):
         bot.send_message(message.chat.id, f"An error occurred: {str(e)}")
         affiliate_link = aliexpress.get_affiliate_links(
             f'https://vi.aliexpress.com/item/[product_id].html?sourceType=620&channel=coin&aff_fcid=21d231ec67b048deb8113c21bad4b7e5-1730491505984-05606-_oBHwjeb&aff_fsk=_oBHwjeb&aff_platform=api-new-link-generate&sk=_oBHwjeb&aff_trace_key=21d231ec67b048deb8113c21bad4b7e5-1730491505984-05606-_oBHwjeb&terminal_id=18e426222265424dbc2fd34c66f1d3a2
-
+')[0].promotion_link
 
         super_links = aliexpress.get_affiliate_links(
             f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=562&aff_fcid='
