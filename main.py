@@ -57,12 +57,38 @@ def button_click(callback_query):
                    reply_markup=keyboard)
 
 # Function to get affiliate links and product details
-# Function to get affiliate links and product details
 def get_affiliate_links(message, message_id, link):
     try:
-        # Get affiliate links
+        # Extract product ID from the link
+        product_id_pattern = r"item\/(\d+)\.html"
+        match = re.search(product_id_pattern, link)
+        if match:
+            product_id = match.group(1)
+
+        # Use AliExpress API to fetch product details
+        api_url = f"https://api.aliexpress.com/product/{product_id}"  # Replace with the actual API endpoint
+        headers = {
+            "Authorization": "UBrTeeNkF8kjCQabs3UZsSosXIHZYzlS"  # Replace with your API token
+        }
+        response = requests.get(api_url, headers=headers)
+        product_details = json.loads(response.text)
+
+        # Extract product details
+        product_name = product_details['title']
+        product_rating = product_details['rating']
+        product_image_url = product_details['image_url']
+
+        # ... (rest of your code to get affiliate links)
+
+        # Send product details and image to the user
+        bot.send_photo(message.chat.id, product_image_url,
+                      caption=f"Product Name: {product_name}\nRating: {product_rating}\n\n{affiliate_link_message}")
+
+    except Exception as e:
+        # Handle errors gracefully
+        bot.send_message(message.chat.id, f"An error occurred: {str(e)}")
         affiliate_link = aliexpress.get_affiliate_links(
-            f'https://Vi.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
+            f'https://vi.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
         )[0].promotion_link
 
         super_links = aliexpress.get_affiliate_links(
@@ -73,53 +99,39 @@ def get_affiliate_links(message, message_id, link):
             f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=561&aff_fcid='
         )[0].promotion_link
 
-        # Retrieve product details
-        product_details = aliexpress.get_products_details([
-            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
-        ])
+        try:
+            product_details = aliexpress.get_products_details([
+                '1000006468625',
+                f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
+            ])
+            price_pro = product_details[0].target_sale_price
+            title_link = product_details[0].product_title
+            img_link = product_details[0].product_main_image_url
 
-        # Debug: Print the API response to check the fields
-        print("Product Details API Response:", product_details)
-
-        if product_details:
-            # Assuming only one product is returned in the details list
-            product = product_details[0]
-            price_pro = product.target_sale_price
-            title_link = product.product_title
-            img_link = product.product_main_image_url
-            rating = getattr(product, 'evaluate_rate', 'N/A')  # Try to get 'evaluate_rate', default to 'N/A'
-
-            # Deleting previous message and sending product details
             bot.delete_message(message.chat.id, message_id)
-            bot.send_photo(
-                message.chat.id,
-                img_link,
-                caption=f" \n🛒 منتجك هو: 🔥 {title_link} 🛍 \n"
-                        f"سعر المنتج: {price_pro} دولار 💵\n"
-                        f"تقييم المنتج: {rating} ⭐️\n"
-                        "\nقارن بين الأسعار واشتري 🔥\n"
-                        f"💰 عرض العملات (السعر النهائي عند الدفع): {affiliate_link}\n"
-                        f"💎 عرض السوبر: {super_links}\n"
-                        f"♨️ عرض محدود: {limit_links}\n\n"
-                        "La Deals!",
-                reply_markup=keyboard
-            )
-        else:
-            # If product details cannot be retrieved
+            bot.send_photo(message.chat.id,
+                           img_link,
+                           caption=f" \n🛒 منتجك هو  : 🔥 \n{title_link} 🛍 \n"
+                                   f"سعر المنتج  : {price_pro} دولار 💵\n"
+                                   " \n قارن بين الاسعار واشتري 🔥 \n"
+                                   f"💰 عرض العملات (السعر النهائي عند الدفع)  : \nالرابط {affiliate_link} \n"
+                                   f"💎 عرض السوبر  : \nالرابط {super_links} \n"
+                                   f"♨️ عرض محدود  : \nالرابط {limit_links} \n\n"
+                                   "La Deals !",
+                           reply_markup=keyboard)
+
+        except:
             bot.delete_message(message.chat.id, message_id)
-            bot.send_message(
-                message.chat.id,
-                "قارن بين الأسعار واشتري 🔥\n"
-                f"💰 عرض العملات (السعر النهائي عند الدفع): {affiliate_link}\n"
-                f"💎 عرض السوبر: {super_links}\n"
-                f"♨️ عرض محدود: {limit_links}\n\n",
-                reply_markup=keyboard
-            )
+            bot.send_message(message.chat.id, 
+                             "قارن بين الاسعار واشتري 🔥 \n"
+                             f"💰 عرض العملات (السعر النهائي عند الدفع) : \nالرابط {affiliate_link} \n"
+                             f"💎 عرض السوبر : \nالرابط {super_links} \n"
+                             f"♨️ عرض محدود : \nالرابط {limit_links} \n\n"
+                             ,
+                             reply_markup=keyboard)
 
     except Exception as e:
         bot.send_message(message.chat.id, "حدث خطأ 🤷🏻‍♂️")
-        print("Error:", e)
-
 
 # Function to extract links from text
 def extract_link(text):
