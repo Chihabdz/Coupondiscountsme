@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -59,37 +58,9 @@ def button_click(callback_query):
 # Function to get affiliate links and product details
 def get_affiliate_links(message, message_id, link):
     try:
-        # Extract product ID from the link
-        product_id_pattern = r"item\/(\d+)\.html"
-        match = re.search(product_id_pattern, link)
-        if match:
-            product_id = match.group(1)
-
-        # Use AliExpress API to fetch product details
-        api_url = f"https://api.aliexpress.com/product/{product_id}"  # Replace with the actual API endpoint
-        headers = {
-            "Authorization": "UBrTeeNkF8kjCQabs3UZsSosXIHZYzlS"  # Replace with your API token
-        }
-        response = requests.get(api_url, headers=headers)
-        product_details = json.loads(response.text)
-
-        # Extract product details
-        product_name = product_details['title']
-        product_rating = product_details['rating']
-        product_image_url = product_details['image_url']
-
-        # ... (rest of your code to get affiliate links)
-
-        # Send product details and image to the user
-        bot.send_photo(message.chat.id, product_image_url,
-                      caption=f"Product Name: {product_name}\nRating: {product_rating}\n\n{affiliate_link_message}")
-
-    except Exception as e:
-        # Handle errors gracefully
-        bot.send_message(message.chat.id, f"An error occurred: {str(e)}")
         affiliate_link = aliexpress.get_affiliate_links(
-            f'https://vi.aliexpress.com/item/[product_id].html?sourceType=620&channel=coin&aff_fcid=21d231ec67b048deb8113c21bad4b7e5-1730491505984-05606-_oBHwjeb&aff_fsk=_oBHwjeb&aff_platform=api-new-link-generate&sk=_oBHwjeb&aff_trace_key=21d231ec67b048deb8113c21bad4b7e5-1730491505984-05606-_oBHwjeb&terminal_id=18e426222265424dbc2fd34c66f1d3a2
-')[0].promotion_link
+            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
+        )[0].promotion_link
 
         super_links = aliexpress.get_affiliate_links(
             f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=562&aff_fcid='
