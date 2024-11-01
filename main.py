@@ -59,7 +59,7 @@ def button_click(callback_query):
 def get_affiliate_links(message, message_id, link):
     try:
         affiliate_link = aliexpress.get_affiliate_links(
-            f'https://star.aliexpress.vn/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
+            f'https://Vi.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
         )[0].promotion_link
 
         super_links = aliexpress.get_affiliate_links(
