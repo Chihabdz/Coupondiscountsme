@@ -55,12 +55,18 @@ def button_click(callback_query):
                    caption="",
                    reply_markup=keyboard)
 
-# Function to get affiliate links and product details
 def get_affiliate_links(message, message_id, link):
     try:
+        # Extracting product ID from the link
+        product_id = link.split("/")[-1].replace('.html', '')  # Removing .html if it's there
+        redirect_url = f'https://vi.aliexpress.com/item/{product_id}.html?sourceType=620&aff_fcid='
+
         affiliate_link = aliexpress.get_affiliate_links(
-            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=620&aff_fcid='
+            f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={redirect_url}'
         )[0].promotion_link
+
+        # (The rest of the function remains unchanged...)
+
 
         super_links = aliexpress.get_affiliate_links(
             f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}?sourceType=562&aff_fcid='
