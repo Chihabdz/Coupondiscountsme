@@ -54,10 +54,7 @@ def button_click(callback_query):
                    img_link1,
                    caption="",
                    reply_markup=keyboard)
-
-       def get_affiliate_links(message, message_id, link):
-
-    try:
+  def get_affiliate_links(message, message_id, link):
 
         affiliate_link = aliexpress.get_affiliate_links(
 
