@@ -117,4 +117,3 @@ def get_link(message):
         get_affiliate_links(message, message_id, link)
     else:
         bot.delete_message(message.chat.id, message_id)
-        bot.send_message(message.chat.id, "الرابط غير صحيح ! تأكد من رابط المنتج أو اعد المحاولة
