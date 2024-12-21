@@ -72,7 +72,6 @@ def get_affiliate_links(message, message_id, link):
 
         try:
             product_details = aliexpress.get_products_details([
-                '1000006468625',
                 f'https://star.aliexpress.com/share/share.htm?platform=AE&businessType=ProductDetail&redirectUrl={link}'
             ])
             price_pro = product_details[0].target_sale_price
@@ -91,7 +90,7 @@ def get_affiliate_links(message, message_id, link):
                                    "La Deals !",
                            reply_markup=keyboard)
 
-        except:
+        except Exception as e:
             bot.delete_message(message.chat.id, message_id)
             bot.send_message(message.chat.id, 
                              "قارن بين الاسعار واشتري 🔥 \n"
